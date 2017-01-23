@@ -51,24 +51,24 @@ function sinusdocker_ConfigOptions() {
             'Type' => 'text',
             'Size' => '120',
             'Default' => '07artem132/sinusbot:0.9.16-10f0fad',
-            'Description' => '<br>Максимум 120 символов',
+            'Description' => '<br>Maximum of 120 characters',
         ), 'HTTP proto' => array(
             'Type' => 'dropdown',
             'Options' => array(
                 'http' => 'http',
                 'https' => 'https',
             ),
-            'Description' => '<br>Выбирайте HTTPS если вы используете SSL сертификат для бота',
-        ), 'Префикс контейнера' => array(
+            'Description' => '<br>Choose HTTPS if you use an SSL certificate for bot',
+        ), 'prefix container' => array(
             'Type' => 'text',
             'Size' => '30',
             'Default' => 'billing_',
-            'Description' => 'По умолчанию контейнеры будут иметь имя: billing_ID услуги',
+            'Description' => 'By default, the containers will be named: billing_ID services',
         ), 'Задержка' => array(
             'Type' => 'text',
             'Size' => '1',
             'Default' => '1',
-            'Description' => 'По умолчанию после запуска контейнера скрипт будет ждать 1 секунду перед тем как будет извлекать пароль (это необходимо потому как бот стартует дольше чем выполняется php скрипт)',
+            'Description' => 'By default, after the launch of the container script will wait 1 second before removing the password will (This is necessary because as the boat starts runs longer than a php script)',
     ));
 }
 
@@ -133,7 +133,7 @@ function sinusdocker_CreateAccount(array $params) {
 
         $passwd = $matches[1];
         if (empty($passwd))
-            throw new Exception('При парсинге лога не был найден пароль, попробуйте увеличить задержку в настройках модуля (услуги)');
+            throw new Exception('When parsing log was not found the password, try increasing the latency in the module settings (services)');
         // обновляем информацию
         $command = "updateclientproduct";
         $values["serviceid"] = $params['serviceid'];
@@ -384,6 +384,13 @@ function sinusdocker_ClientArea(array $params) {
             ),
         );
     }
+}
+
+
+function sinusdocker_LoginLink($params) {
+
+    echo "<a href=\"".$params["domain"]."\" target=\"_blank\" style=\"color:#cc0000\">USER CONTROL PANEL</a>";
+
 }
 
 function loadLang($lang = null) {
